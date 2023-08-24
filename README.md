@@ -4,4 +4,4 @@ Bot Discord for the "La Guild des Aventuriers" server
 
 ## Authors
 _______
-+ lchouvil [Gitea](https://zone01normandie.org/git/lchouvil)[Git](https://github.com/lchouville)
++ lchouvil [Gitea](https://zone01normandie.org/git/lchouvil) [Git](https://github.com/lchouville)
