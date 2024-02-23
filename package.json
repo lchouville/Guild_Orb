@@ -1,0 +1,15 @@
+{
+  "name": "guild_orb",
+  "version": "1.0.0",
+  "description": "Bot Discord for the \"La Guild des Aventuriers\" server\r [Trello](https://trello.com/b/L0VduJcw/guildorb)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1"
+  }
+}
