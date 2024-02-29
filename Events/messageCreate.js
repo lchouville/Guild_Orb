@@ -1,25 +1,34 @@
 const Discord = require('discord.js');
 
-module.exports = async ( bot,message) => {
-    if (message.author.bot){return;}
+module.exports = async (bot, message) => {
+    if (message.author.bot) return;
 
-    // Quoi!!
-    messContent = message.content
-    if (messContent.endsWith(" quoi")||messContent === "Quoi?"){
-        return bot.commands.get("feur").run(message);
+    // Prefix for commands
+    let prefix = "orb!";
+    let messContent = message.content.trim(); // Trim any leading or trailing whitespace
+    let messageArray = messContent.split(" ");
+    let commandName = messageArray[0].slice(prefix.length);
+    let args = messageArray.slice(1);
+
+    // If the message starts with the prefix
+    if (messContent.startsWith(prefix)) {
+        // If the message contains only the prefix
+        if (messContent === prefix) {
+            // Change the commandName to 'help' to execute the help command
+            commandName = 'help';
+        }
+
+        // If the message contains a valid command
+        if (bot.commands.has(commandName)) {
+            let command = require(`../Commands/${commandName}`);
+            command.run(bot, message, args);
+            return;
+        }
+        
+        // If the message contains an invalid command
+        return message.reply(`[${commandName}] is not a valid command!`);
     }
-    /*                      *
-     *    Prefixes command  *
-     *                      */
-
-    let prefix = "?"; // Prefixes command
-    let messageArray = messContent.split(" "); // Split the message into an array
-    let commandName = messageArray[0].slice(prefix.length); // Get the command name
-    let args = messageArray.slice(1); // Get the arguments
-
-    if (!message.content.startsWith(prefix)) return; // If the message does not start with the prefix stop the event
-    if (!bot.commands.has(commandName)) return message.reply(`[${commandName}] has not a Command!`); // If the command does not exist stop the event
     
-    let command = require(`../Commands/${commandName}`); //get the command
-    command.run(bot,message,args); // Run the command
-}
+    // If the message does not start with the prefix
+    // Add additional logic for non-command messages if needed
+};
