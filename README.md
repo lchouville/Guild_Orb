@@ -18,8 +18,12 @@ npm install
 3. change the needed config on `config.json`
     - bot token get at [discord Developers app](https://discord.com/developers/applications)
 ## Usage
-
+Launch the bot application with the following command
+```cmd
+node bot.js
+```
 
 ## Authors
 _______
 + lchouvil [Gitea](https://zone01normandie.org/git/lchouvil) [Git](https://github.com/lchouville)
+z

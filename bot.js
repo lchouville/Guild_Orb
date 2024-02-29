@@ -1,16 +1,17 @@
 // Require the necessary discord.js classes
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+const Discord = require('discord.js'); // Import the discord.js module
+const intents = new Discord.IntentsBitField(3276799); // 3276799 for all intent 
+const bot = new Discord.Client({intents}); // Create a new client with the intents bitfield
+
 const { token } = require('./config.json');
+// js Import
+const loadCommands = require('./Loaders/loadCommands'); // Load the commands
+const loadEvents = require('./Loaders/loadEvents'); // Load the events
 
-// Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
+bot.commands = new Discord.Collection();
 // When the client is ready, run this code (only once).
-// The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
-// It makes some properties non-nullable.
-client.once(Events.ClientReady, readyClient => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-});
-
+// console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 // Log in to Discord with your client's token
-client.login(token);
+bot.login(token);
+loadCommands(bot); // load the commands
+loadEvents(bot); // load the events
