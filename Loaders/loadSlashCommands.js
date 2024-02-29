@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord.js');
+// Read the JSON file containing color codes
+const { colors } = require('../color.json');
 
 module.exports = async bot => {
     let commands = [];
@@ -23,5 +25,5 @@ module.exports = async bot => {
     const rest = new REST({ version: '10' }).setToken(bot.token); // create a new REST client
 
     await rest.put(Routes.applicationCommands(bot.user.id), { body: commands }); 
-    console.log('Successfully registered application commands.');
+    console.log(`${colors.bright.green}Successfully registered${colors.reset} application commands.`);
 }
