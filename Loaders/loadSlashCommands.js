@@ -4,26 +4,34 @@ const { Routes } = require('discord.js');
 // Read the JSON file containing color codes
 const { colors } = require('../color.json');
 
+// Array of command names to exclude from slashCommands
+const excludedCommands = [
+    "botname",
+];
+
 module.exports = async bot => {
     let commands = [];
 
     bot.commands.forEach(async command => {
-        let slashCommand = new Discord.SlashCommandBuilder()
-        .setName(command.name) // name of the command
-        .setDescription(command.description) // description of the command
-        .setDMPermission(command.dm) // dm permission
-        .setDefaultMemberPermissions(command.permission === "none" ? null : command.permission) // default member permissions
+        // Check if the command name is included in the excludedCommands array
+        if (excludedCommands.includes(command.name)) return;
 
-        if(command.options?.lenght >= 1) {
-            for(let option of command.options) {
-                slashCommand[`add${command.option[i].type.slice(0,1).toUpperCase()+command.option[i].type.slice(1,command.option[i].type.lenght)}Option`](option => option.setName(command.option[i].name).setDescription(command.option[i].description).setRequired(command.option[i].required))
+        let slashCommand = new Discord.SlashCommandBuilder()
+            .setName(command.name) // name of the command
+            .setDescription(command.description) // description of the command
+            .setDMPermission(command.dm) // dm permission
+            .setDefaultMemberPermissions(command.permission === "none" ? null : command.permission); // default member permissions
+
+        if (command.options?.length >= 1) {
+            for (let option of command.options) {
+                slashCommand[`add${option.type.slice(0, 1).toUpperCase() + option.type.slice(1) + 'Option'}`](option => option.setName(option.name).setDescription(option.description).setRequired(option.required));
             }
         }
-        await commands.push(slashCommand)
-    }); 
+        await commands.push(slashCommand);
+    });
 
     const rest = new REST({ version: '10' }).setToken(bot.token); // create a new REST client
 
-    await rest.put(Routes.applicationCommands(bot.user.id), { body: commands }); 
+    await rest.put(Routes.applicationCommands(bot.user.id), { body: commands });
     console.log(`${colors.bright.green}Successfully registered${colors.reset} application commands.`);
 }
