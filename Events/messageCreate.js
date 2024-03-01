@@ -1,10 +1,11 @@
 const Discord = require('discord.js');
+const config = require('../config'); // load the config file
 
 module.exports = async (bot, message) => {
     if (message.author.bot) return;
 
     // Prefix for commands
-    const { prefix } = require('./config.json');
+    const prefix = config.prefix;
     let messContent = message.content.trim(); // Trim any leading or trailing whitespace
     let messageArray = messContent.split(" ");
     let commandName = messageArray[0].slice(prefix.length);

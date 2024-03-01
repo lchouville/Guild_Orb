@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const path = require('path');
-const { prefix } = require('./config.json'); // command prefix stored in config.json
+const config = require('../config'); // load the config file
 
 module.exports = {
     name: "help",
@@ -18,7 +18,7 @@ module.exports = {
         const embed = {
             color: 0x0099ff,
             title: 'Available Commands',
-            description: ''+commandList.join('\n'),
+            description: config.prefix +commandList.join('\n'),
         };
 
         // Send the embed to the user
