@@ -6,7 +6,7 @@
 
 # misc
 .env
-config.json
+config.js
 
 # Binaries for programs and plugins
 *.exe

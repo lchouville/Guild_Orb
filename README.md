@@ -26,4 +26,3 @@ node bot.js
 ## Authors
 _______
 + lchouvil [Gitea](https://zone01normandie.org/git/lchouvil) [Git](https://github.com/lchouville)
-z

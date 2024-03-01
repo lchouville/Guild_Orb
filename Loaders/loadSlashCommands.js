@@ -8,9 +8,10 @@ const { colors } = require('../color.json');
 const excludedCommands = [
     "botname",
 ];
-
+// load all commands on the slashCommands option
 module.exports = async bot => {
     let commands = [];
+    let slashcommands = [];
 
     bot.commands.forEach(async command => {
         // Check if the command name is included in the excludedCommands array
@@ -28,10 +29,12 @@ module.exports = async bot => {
             }
         }
         await commands.push(slashCommand);
+        await slashcommands.push("/"+slashCommand.name);
+        if (slashcommands.length%4==0) {slashcommands.push("\n");}
     });
 
     const rest = new REST({ version: '10' }).setToken(bot.token); // create a new REST client
 
     await rest.put(Routes.applicationCommands(bot.user.id), { body: commands });
-    console.log(`${colors.bright.green}Successfully registered${colors.reset} application commands.`);
+    console.log(`${colors.bright.green}Successfully registered${colors.reset} application commands.\n| ${slashcommands.join(' | ')} |`);
 }
